@@ -1,1 +1,1 @@
-# Small stuff for academic purpose
+# Raspberry Pi-based responder and defense setup

@@ -1,21 +1,34 @@
-1. **Prepare the Raspberry Pi with Raspberry Pi OS Lite**  
-   Standard setup instructions for Raspberry Pi OS Lite.
+import http.server
+import socketserver
+import logging
 
-2. **Install Python**  
-   Ensure Python 3 is installed:
-   ```bash
-   sudo apt update
-   sudo apt install python3
-   ```
+# Define the port number
+PORT = 8080
 
-3. **Run the Server**  
-   Navigate to the project directory and run the script:
-   ```bash
-   python3 fake_server.py
-   ```
+# Create a request handler
+class RequestHandler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        # GET request log
+        logging.info(f"Received GET request from {self.client_address}")
+        # Respond with a 200 OK 
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(b"Hello, this is a fake server!")
 
-4. (optional) - **SSH Access **: To access your Pi remotely, enable SSH from the `raspi-config` menu or via the terminal:
-     ```bash
-     sudo raspi-config
-     ```
-     Select **Interfacing Options > SSH > Enable**.
+    def do_POST(self):
+        # POST request log
+        logging.info(f"Received POST request from {self.client_address}")
+        # Respond with a 200 OK 
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(b"POST request received")
+
+# Set up logging
+logging.basicConfig(filename="server.log", level=logging.INFO)
+
+# Create and start the HTTP server
+with socketserver.TCPServer(("", PORT), RequestHandler) as httpd:
+    print(f"Fake server running on port {PORT}. Press Ctrl+C to stop.")
+    httpd.serve_forever()

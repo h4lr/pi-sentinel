@@ -4,7 +4,7 @@ This project sets up a **fake HTTP server** on a Raspberry Pi for educational pu
 
 ## Compatibility with Raspberry Pi 2
 
-While this project can be run on various Raspberry Pi models being 3 and 4 best, i'll be using a **Raspberry Pi 2**
+I'll be using a **Raspberry Pi 2 since it's the model i have**
 
 ### Key Considerations for the Raspberry Pi 2
 
